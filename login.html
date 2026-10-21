@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#7B68EE">
+  <title>Entrar · NeuroPlan</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="pagina-login">
+  <div class="app">
+    <main class="conteudo">
+      <div class="login__marca"><img src="logo-horizontal.svg" alt="NeuroPlan"></div>
+
+      <div class="login__progresso" aria-hidden="true"><span class="login__barra" id="login-barra"></span></div>
+      <p class="login__passo-txt" id="login-passo-txt" aria-live="polite">Passo 1 de 4</p>
+
+      <form class="login__form" id="form-login" novalidate>
+
+        <!-- PASSO 1: sobre você -->
+        <fieldset class="login__passo" data-passo="conta">
+          <div class="titulo-tela"><p class="titulo-tela__rotulo">Bem-vindo(a)</p>
+            <h1 class="titulo-tela__titulo" id="login-titulo">Vamos te conhecer</h1></div>
+          <p class="login__intro">Responda no seu ritmo. Nada aqui é certo ou errado — serve só para o app se adaptar a você.</p>
+
+          <div class="campo"><label class="campo__rotulo" for="l-nome">Como quer ser chamado(a)?</label>
+            <input class="campo__input" id="l-nome" name="nome" type="text" autocomplete="name" required></div>
+          <div class="campo"><label class="campo__rotulo" for="l-email">E-mail (opcional)</label>
+            <input class="campo__input" id="l-email" name="email" type="email" autocomplete="email"></div>
+          <div class="campo"><label class="campo__rotulo" for="l-idade">Idade</label>
+            <input class="campo__input" id="l-idade" name="idade" type="number" min="5" max="99" inputmode="numeric" required></div>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Qual é o seu caso?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="diagnostico" value="TDAH"><span>TDAH</span></label>
+              <label class="chip"><input type="radio" name="diagnostico" value="TEA"><span>TEA (autismo)</span></label>
+              <label class="chip"><input type="radio" name="diagnostico" value="TDAH + TEA"><span>TDAH + TEA</span></label>
+              <label class="chip"><input type="radio" name="diagnostico" value="Em investigação"><span>Em investigação</span></label>
+            </div></fieldset>
+        </fieldset>
+
+        <!-- PASSO 2: TDAH -->
+        <fieldset class="login__passo" data-passo="tdah">
+          <div class="titulo-tela"><p class="titulo-tela__rotulo">TDAH</p><h2 class="titulo-tela__titulo">Atenção e energia</h2></div>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Como você se descreve?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tdah_tipo" value="desatento"><span>Mais desatento(a)</span></label>
+              <label class="chip"><input type="radio" name="tdah_tipo" value="hiperativo"><span>Mais agitado(a)</span></label>
+              <label class="chip"><input type="radio" name="tdah_tipo" value="combinado"><span>Os dois</span></label>
+              <label class="chip"><input type="radio" name="tdah_tipo" value="nao-sei"><span>Não sei</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">O que mais atrapalha? (marque quantos quiser)</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="foco"><span>Manter o foco</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="comecar"><span>Começar tarefas</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="esquecimento"><span>Esquecimentos</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="tempo"><span>Noção de tempo</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="organizacao"><span>Organização</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="impulsividade"><span>Impulsividade</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="hiperfoco"><span>Hiperfoco (difícil parar)</span></label>
+              <label class="chip"><input type="checkbox" name="tdah_dificuldades" value="inquietacao"><span>Inquietação</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Quando você rende melhor?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tdah_periodo" value="manha"><span>Manhã</span></label>
+              <label class="chip"><input type="radio" name="tdah_periodo" value="tarde"><span>Tarde</span></label>
+              <label class="chip"><input type="radio" name="tdah_periodo" value="noite"><span>Noite</span></label>
+              <label class="chip"><input type="radio" name="tdah_periodo" value="varia"><span>Varia</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Por quanto tempo consegue focar de uma vez?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tdah_foco" value="15"><span>~15 min</span></label>
+              <label class="chip"><input type="radio" name="tdah_foco" value="25"><span>~25 min</span></label>
+              <label class="chip"><input type="radio" name="tdah_foco" value="45"><span>~45 min</span></label>
+              <label class="chip"><input type="radio" name="tdah_foco" value="60"><span>1 h ou mais</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Faz acompanhamento ou usa medicação?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tdah_acompanhamento" value="sim"><span>Sim</span></label>
+              <label class="chip"><input type="radio" name="tdah_acompanhamento" value="nao"><span>Não</span></label>
+              <label class="chip"><input type="radio" name="tdah_acompanhamento" value="prefiro-nao-dizer"><span>Prefiro não dizer</span></label>
+            </div></fieldset>
+        </fieldset>
+
+        <!-- PASSO 3: TEA -->
+        <fieldset class="login__passo" data-passo="tea">
+          <div class="titulo-tela"><p class="titulo-tela__rotulo">TEA</p><h2 class="titulo-tela__titulo">Rotina e sentidos</h2></div>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Nível de suporte (se souber)</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tea_suporte" value="1"><span>Nível 1</span></label>
+              <label class="chip"><input type="radio" name="tea_suporte" value="2"><span>Nível 2</span></label>
+              <label class="chip"><input type="radio" name="tea_suporte" value="3"><span>Nível 3</span></label>
+              <label class="chip"><input type="radio" name="tea_suporte" value="nao-sei"><span>Não sei</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">O que te incomoda sensorialmente?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="som"><span>Sons altos</span></label>
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="luz"><span>Luz forte</span></label>
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="toque"><span>Toque / texturas</span></label>
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="cheiro"><span>Cheiros</span></label>
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="multidao"><span>Multidões</span></label>
+              <label class="chip"><input type="checkbox" name="tea_sensorial" value="visual"><span>Telas muito coloridas</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Quanto você precisa saber o que vem depois?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tea_previsao" value="muito"><span>Tudo com antecedência</span></label>
+              <label class="chip"><input type="radio" name="tea_previsao" value="medio"><span>Um pouco</span></label>
+              <label class="chip"><input type="radio" name="tea_previsao" value="pouco"><span>Tanto faz</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Mudanças de planos de última hora</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="tea_mudancas" value="dificil"><span>Mexem muito comigo</span></label>
+              <label class="chip"><input type="radio" name="tea_mudancas" value="moderado"><span>Incomodam um pouco</span></label>
+              <label class="chip"><input type="radio" name="tea_mudancas" value="tranquilo"><span>Lido bem</span></label>
+            </div></fieldset>
+
+          <fieldset class="campo campo--grupo"><legend class="campo__rotulo">Como prefere receber instruções?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="tea_comunicacao" value="direto"><span>Texto direto</span></label>
+              <label class="chip"><input type="checkbox" name="tea_comunicacao" value="literal"><span>Sem figuras de linguagem</span></label>
+              <label class="chip"><input type="checkbox" name="tea_comunicacao" value="passos"><span>Passo a passo</span></label>
+              <label class="chip"><input type="checkbox" name="tea_comunicacao" value="visual"><span>Com ícones/imagens</span></label>
+            </div></fieldset>
+
+          <div class="campo"><label class="campo__rotulo" for="l-interesses">Interesses especiais (opcional)</label>
+            <textarea class="campo__input" id="l-interesses" name="tea_interesses" rows="2" placeholder="ex: astronomia, jogos, desenho..."></textarea>
+            <p class="campo__ajuda">Podemos usar isso para deixar o app mais motivador.</p></div>
+        </fieldset>
+
+        <!-- PASSO 4: dia a dia -->
+        <fieldset class="login__passo" data-passo="final">
+          <div class="titulo-tela"><p class="titulo-tela__rotulo">Quase lá</p><h2 class="titulo-tela__titulo">Seu dia a dia</h2></div>
+
+          <div class="campo"><label class="campo__rotulo" for="l-objetivos">Seus objetivos</label>
+            <textarea class="campo__input" id="l-objetivos" name="objetivos" rows="2" placeholder="ex: melhorar o foco nos estudos"></textarea></div>
+          <div class="campo"><label class="campo__rotulo" for="l-gatilhos">O que costuma te sobrecarregar?</label>
+            <textarea class="campo__input" id="l-gatilhos" name="gatilhos" rows="2" placeholder="ex: muitas tarefas ao mesmo tempo, prazos curtos"></textarea></div>
+          <div class="campo"><label class="campo__rotulo" for="l-calma">O que ajuda você a se acalmar?</label>
+            <textarea class="campo__input" id="l-calma" name="calma" rows="2" placeholder="ex: música, caminhar, ficar em silêncio"></textarea></div>
+          <div class="campo"><label class="campo__rotulo" for="l-contato">Pessoa de confiança (opcional)</label>
+            <input class="campo__input" id="l-contato" name="contato" type="text" placeholder="Nome e telefone"></div>
+
+          <label class="opcao" id="l-resp-box" hidden><input type="checkbox" name="responsavel"><span>Um responsável sabe que estou usando o app</span></label>
+          <label class="opcao"><input type="checkbox" name="consentimento" required><span>Entendo que minhas respostas ficam salvas só neste aparelho e posso apagá-las em Configurações.</span></label>
+          <p class="login__aviso-legal">O NeuroPlan é uma ferramenta de organização e não substitui acompanhamento profissional.</p>
+        </fieldset>
+
+        <div class="login__acoes">
+          <button type="button" class="botao botao--secundario" id="login-voltar" hidden>Voltar</button>
+          <button type="button" class="botao botao--principal" id="login-avancar">Continuar</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

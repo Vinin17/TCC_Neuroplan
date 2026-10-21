@@ -1,0 +1,371 @@
+/* =========================================================
+   NEUROPLAN · style.css
+   Mobile-first (base = celular). Depois: tablet/desktop, Modo Calmo,
+   login e configurações (seções 14 a 17).
+   ========================================================= */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* 1. Variáveis */
+:root{
+  --roxo:#7360E8;--roxo-escuro:#5844C9;--roxo-claro:#D6CCFA;--lilas:#EAE2F8;--lilas-medio:#C4B8F6;
+  --laranja:#FAE5D6;--azul:#D3E8F7;--verde:#DDF2E8;--rosa:#FBE0EA;--verde-forte:#3FA777;
+  --tinta:#1E1B3A;--tinta-suave:#6B6785;--linha:#D9D5E8;--branco:#FFFFFF;--fundo-pagina:#ECE9F7;
+  --largura-app:430px;--altura-menu:68px;--raio-g:16px;--raio-m:12px;--raio-p:8px;--margem:20px;
+  --fonte:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+body.modo-calmo *,body.modo-calmo *::before,body.modo-calmo *::after{animation:none!important;transition:none!important}
+
+/* 2. Base */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
+body{margin:0;min-height:100dvh;background:var(--fundo-pagina);color:var(--tinta);font-family:var(--fonte);font-size:1rem;line-height:1.4;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,p,ul,fieldset{margin:0;padding:0}
+ul{list-style:none}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%;height:auto}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--roxo-escuro);outline-offset:2px}
+.visualmente-oculto{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.icone{width:22px;height:22px;flex:none}
+.icone--mini{width:14px;height:14px}
+.icone--roxo{color:var(--roxo-escuro)}
+
+/* 3. Estrutura */
+.app{position:relative;width:100%;max-width:var(--largura-app);min-height:100dvh;margin:0 auto;background:var(--branco)}
+.conteudo{padding:4px var(--margem) calc(var(--altura-menu) + 32px + env(safe-area-inset-bottom,0px))}
+.topo{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) var(--margem) 10px}
+.topo__logo img{height:30px;width:auto}
+.avatar{display:grid;place-items:center;background:var(--lilas);color:var(--roxo-escuro);font-weight:600}
+.avatar--pequeno{width:34px;height:34px;border-radius:50%;font-size:.875rem}
+.avatar--grande{width:72px;height:72px;border-radius:var(--raio-g);font-size:2rem}
+
+/* 4. Menu inferior */
+.menu{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:10;width:100%;max-width:var(--largura-app);display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:center;height:calc(var(--altura-menu) + env(safe-area-inset-bottom,0px));padding:0 6px env(safe-area-inset-bottom,0px);background:var(--branco);border-top:1px solid var(--linha)}
+.menu__item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:48px;font-size:.6875rem;color:var(--tinta)}
+.menu__item.is-ativo{color:var(--roxo-escuro);font-weight:600}
+.menu__adicionar{display:grid;place-items:center;justify-self:center;align-self:start;width:52px;height:52px;margin-top:-22px;border-radius:16px;background:var(--roxo);color:var(--branco);box-shadow:0 6px 14px rgba(115,96,232,.35)}
+.menu__adicionar .icone{width:26px;height:26px}
+.menu__adicionar.is-ativo{background:var(--roxo-escuro)}
+
+/* 5. Títulos e blocos */
+.titulo-tela{margin:8px 0 16px}
+.titulo-tela--centro{text-align:center}
+.titulo-tela__rotulo{font-size:.625rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave)}
+.titulo-tela__titulo{font-size:1.25rem;font-weight:700;line-height:1.25}
+.titulo-tela__apoio{margin-top:2px;font-size:.75rem;color:var(--tinta-suave)}
+.bloco{margin-top:20px}
+.bloco__cabecalho{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.bloco__titulo{font-size:.8125rem;font-weight:500}
+.link-pequeno{display:inline-flex;align-items:center;min-height:32px;font-size:.6875rem;color:var(--roxo-escuro);text-decoration:underline}
+
+/* 6. Hoje */
+.lista-tarefas{display:flex;flex-direction:column;gap:10px}
+.tarefa{display:flex;align-items:center;gap:8px;padding:4px 6px 4px 12px;border-radius:var(--raio-m);background:var(--lilas)}
+.tarefa--aula{background:var(--laranja)}.tarefa--afazeres{background:var(--lilas)}.tarefa--saude{background:var(--azul)}.tarefa--lazer{background:var(--rosa)}
+.tarefa--importante{box-shadow:inset 0 0 0 2px var(--roxo-escuro)}
+.tarefa__principal{flex:1;display:flex;align-items:center;gap:10px;min-height:48px;cursor:pointer}
+.tarefa__texto{display:flex;flex-direction:column;gap:1px}
+.tarefa__titulo{font-size:1rem;font-weight:500;line-height:1.2}
+.tarefa__meta{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;font-size:.6875rem;color:var(--tinta-suave)}
+.tarefa__check{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;border:1.5px solid #4A4666;border-radius:5px;background:transparent center/14px no-repeat;cursor:pointer}
+.tarefa__check:checked{border-color:var(--tinta);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E1B3A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E")}
+.tarefa__editar{display:grid;place-items:center;flex:none;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--tinta-suave)}
+.tarefa__editar .icone{width:16px;height:16px}
+.semana{display:flex;gap:12px;margin:0 calc(var(--margem) * -1);padding:0 var(--margem) 4px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--margem);scrollbar-width:none}
+.semana::-webkit-scrollbar{display:none}
+.semana__item{flex:0 0 calc(50% - 6px);scroll-snap-align:start}
+.semana__dia{display:block;height:100%;min-height:92px;padding:12px 14px;border-radius:var(--raio-m);background:var(--roxo-claro)}
+.semana__dia.is-hoje{box-shadow:inset 0 0 0 2px var(--roxo-escuro)}
+.semana__nome{font-size:.9375rem;font-weight:700}
+.semana__qtd{font-size:.625rem;color:var(--tinta-suave)}
+.semana__bolinhas{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.bolinha{width:12px;height:12px;border:1.5px solid var(--verde-forte);border-radius:50%}
+.bolinha.is-feita{background:var(--verde-forte)}
+.proxima{margin-bottom:4px;padding:10px 12px;border-left:3px solid var(--roxo);border-radius:0 var(--raio-p) var(--raio-p) 0;background:var(--lilas);font-size:.8125rem}
+.vazio{padding:18px 14px;border:1px dashed var(--linha);border-radius:var(--raio-m);text-align:center;font-size:.875rem;color:var(--tinta-suave)}
+
+/* 7. Nova tarefa */
+.formulario{display:flex;flex-direction:column;gap:16px}
+.campo{display:flex;flex-direction:column;gap:6px;min-width:0;border:0}
+.campo__rotulo{padding:0;font-size:.6875rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta)}
+.campo__input{width:100%;padding:11px 12px;border:1px solid var(--linha);border-radius:var(--raio-p);background:var(--branco);font-size:1rem}
+.campo__input::placeholder{color:#9A96AE}
+.campo__input--area{min-height:140px;resize:vertical}
+.campo__input[aria-invalid="true"]{border-color:#C0392B}
+.campo__erro{font-size:.75rem;color:#B3261E}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;min-height:38px;padding:0 16px;border:1px solid var(--roxo);border-radius:999px;font-size:.8125rem;color:var(--roxo-escuro)}
+.chip input:checked + span{background:var(--roxo);color:var(--branco);font-weight:500}
+.chip input:focus-visible + span{outline:3px solid var(--roxo-escuro);outline-offset:2px}
+.horario{min-width:0;padding:12px;border:1px solid var(--linha);border-radius:var(--raio-m)}
+.horario__cabecalho{display:flex;align-items:center;justify-content:space-between}
+.horario__titulo{display:flex;align-items:center;gap:6px;padding:0;font-size:.75rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.horario__data{position:relative;display:flex;align-items:center;gap:6px;min-height:40px;margin:-8px -4px -8px 0;padding:0 4px 0 8px;border-radius:var(--raio-p);font-size:.8125rem;font-weight:500;color:var(--roxo-escuro);cursor:pointer}
+.horario__data-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.horario__data:has(input:focus-visible){outline:3px solid var(--roxo-escuro);outline-offset:2px}
+.horario__linha{display:flex;align-items:center;gap:10px;margin-top:8px}
+.horario__hora{flex:1;min-width:0;padding:9px 10px;border:0;border-radius:var(--raio-p);background:#E7E5EE;font-size:1rem}
+.horario__as{font-size:.875rem;color:var(--tinta-suave)}
+.horario__aviso{display:flex;align-items:center;gap:6px;min-height:40px;margin-top:6px;font-size:.75rem;font-weight:600;cursor:pointer}
+.horario__aviso:has(input:not(:checked)){opacity:.55;text-decoration:line-through}
+.horario__aviso:has(input:focus-visible){outline:3px solid var(--roxo-escuro);outline-offset:2px;border-radius:var(--raio-p)}
+.opcoes{display:flex;flex-direction:column;gap:2px;min-width:0;border:0}
+.opcao{display:flex;align-items:center;gap:10px;min-height:42px;font-size:.875rem;cursor:pointer}
+.opcao input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;margin:0;border:1.5px solid var(--roxo);border-radius:6px;background:transparent center/15px no-repeat;cursor:pointer}
+.opcao input:checked{background-color:var(--roxo);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E")}
+.botao{display:flex;align-items:center;justify-content:center;width:100%;min-height:50px;border:0;border-radius:10px;font-size:1rem;font-weight:600}
+.botao--principal{background:var(--roxo);color:var(--branco)}
+.botao--principal:hover{background:var(--roxo-escuro)}
+.botao--principal:active{transform:scale(.99)}
+.botao--perigo{margin-top:-4px;border:1px solid #B3261E;background:transparent;color:#B3261E}
+
+/* 8. Rotina */
+.resumo-semana{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.resumo-semana__dia{display:block;width:100%;height:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:var(--raio-m);background:var(--branco);text-align:left}
+.resumo-semana__dia.is-selecionado{border-color:var(--roxo);box-shadow:inset 0 0 0 1px var(--roxo)}
+.resumo-semana__nome{display:block;margin-bottom:4px;font-size:.875rem;font-weight:700}
+.resumo-semana__item{display:block;font-size:.75rem}
+.resumo-semana__item::before{content:"•";margin-right:3px;color:var(--roxo);font-weight:700}
+.resumo-semana__vazio{grid-column:1/-1;padding:12px;border:1px dashed var(--linha);border-radius:var(--raio-m);text-align:center;font-size:.75rem;color:var(--tinta-suave)}
+.calendario{margin-top:16px;padding:12px;border:1px solid var(--linha);border-radius:var(--raio-g)}
+.calendario__controles{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.calendario__seta{display:grid;place-items:center;width:40px;height:40px;border:0;background:transparent}
+.calendario__seta .icone{width:18px;height:18px}
+.calendario__select{min-height:38px;padding:0 10px;border:1px solid var(--linha);border-radius:6px;background:var(--branco);font-size:.8125rem}
+.calendario__grade{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.calendario__semana{padding:4px 0;text-align:center;font-size:.6875rem;color:var(--tinta-suave)}
+.calendario__dia{display:grid;place-items:center;width:100%;min-height:38px;padding:0;border:0;border-radius:var(--raio-p);background:transparent;font-size:.8125rem}
+.calendario__dia.is-marcado{background:#EFEDF5}
+.calendario__dia.is-hoje{box-shadow:inset 0 0 0 1.5px var(--roxo)}
+.calendario__dia.is-selecionado{background:var(--roxo);color:var(--branco);font-weight:600}
+.calendario__dia.is-fora{color:#B3AFC4}
+.dia-detalhe{margin-top:18px}
+.dia-detalhe__titulo{margin-bottom:8px;font-size:.8125rem;font-weight:500}
+.dia-detalhe__cartao{padding:14px;border-radius:var(--raio-m);background:var(--verde)}
+.dia-detalhe__qtd{font-size:1.125rem;font-weight:500}
+.dia-detalhe__lista{font-size:.6875rem;color:var(--tinta-suave)}
+.dia-detalhe .lista-tarefas{margin-top:12px}
+
+/* 9. Cuidados */
+.cuidados{display:flex;flex-direction:column;gap:10px}
+.cuidado{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;padding:10px 14px;border-radius:14px;background:var(--lilas-medio);cursor:pointer}
+.cuidado__texto{display:flex;flex-direction:column;gap:1px}
+.cuidado__titulo{font-size:.9375rem;font-weight:700}
+.cuidado__descricao{font-size:.75rem;line-height:1.3}
+.interruptor{appearance:none;-webkit-appearance:none;position:relative;flex:none;width:44px;height:24px;margin:0;border-radius:999px;background:#2E2A4F;cursor:pointer;transition:background .15s}
+.interruptor::before{content:"";position:absolute;top:4px;left:4px;width:16px;height:16px;border-radius:50%;background:#8B86B0;transition:transform .15s,background .15s}
+.interruptor:checked{background:var(--roxo)}
+.interruptor:checked::before{transform:translateX(20px);background:#2E2A4F}
+.cuidados__aviso{margin-top:22px;text-align:center;font-size:.6875rem;color:var(--tinta-suave)}
+
+/* 10. Usuário */
+.perfil{display:flex;flex-direction:column;align-items:center;margin-top:8px}
+.perfil__nome{margin-top:6px;font-size:1.5rem;font-weight:700}
+.perfil__editar{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 8px;border:0;background:transparent;font-size:.75rem;color:var(--tinta-suave);text-decoration:underline}
+.perfil__form{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.campo-perfil{padding:8px 12px 10px;border:1px solid var(--linha);border-radius:var(--raio-m)}
+.campo-perfil:focus-within,.perfil__form.is-editando .campo-perfil{border-color:var(--roxo)}
+.campo-perfil__rotulo{display:block;font-size:.6875rem;color:var(--tinta-suave)}
+.campo-perfil__input{display:block;width:100%;padding:0;border:0;background:transparent;font-size:1rem;font-weight:500}
+.campo-perfil__input:focus-visible{outline:none}
+.campo-perfil__input--area{resize:none;min-height:2.8em}
+.estatisticas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.estatistica{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:72px;padding:8px 4px;border-radius:var(--raio-m);background:var(--verde);text-align:center}
+.estatistica__numero{font-size:1.375rem;font-weight:500;line-height:1}
+.estatistica__rotulo{font-size:.625rem;color:var(--tinta-suave)}
+
+/* 11. Aviso rápido */
+.aviso{position:fixed;left:50%;bottom:calc(var(--altura-menu) + 26px + env(safe-area-inset-bottom,0px));z-index:20;max-width:calc(100% - 40px);padding:12px 18px;border-radius:999px;background:var(--tinta);color:var(--branco);font-size:.875rem;transform:translate(-50%,12px);opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+.aviso.is-visivel{opacity:1;transform:translate(-50%,0)}
+
+/* 12. Telas maiores: sombra do app */
+@media (min-width:480px){.app{box-shadow:0 0 40px rgba(60,40,140,.12)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ===== 13 a 17: Responsividade, Modo Calmo (escuro), Login e Configurações ===== */
+/* =========================================================
+   NEUROPLAN · extras.css
+   Carregue DEPOIS do style.css:  <link rel="stylesheet" href="extras.css">
+   Contém: responsividade (celular/tablet/desktop), novo Modo Calmo (escuro),
+   login, configurações e botão de engrenagem no cabeçalho.
+   ========================================================= */
+
+/* ---------- Evita rolagem lateral e textos estourando ---------- */
+html { overflow-x: hidden; }
+.tarefa__titulo, .resumo-semana__item, .perfil__nome { overflow-wrap: anywhere; }
+.topo__acoes { display: flex; align-items: center; gap: 8px; }
+.topo__config {
+  display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: 50%; color: var(--tinta-suave);
+}
+.topo__config:hover { background: var(--lilas); }
+.topo__config .icone { width: 22px; height: 22px; }
+
+/* ---------- Celulares pequenos (até 359px) ---------- */
+@media (max-width: 359px) {
+  :root { --margem: 14px; }
+  .menu { grid-template-columns: 1fr 1fr 64px 1fr 1fr; padding-inline: 2px; }
+  .menu__item { font-size: 0.625rem; }
+  .semana__item { flex-basis: 72%; }
+  .resumo-semana { grid-template-columns: 1fr; }
+  .estatistica__numero { font-size: 1.125rem; }
+  .estatistica__rotulo { font-size: 0.5625rem; }
+  .chip span { padding: 0 12px; }
+}
+
+/* ---------- Celular deitado (pouca altura) ---------- */
+@media (max-height: 480px) and (orientation: landscape) {
+  :root { --altura-menu: 56px; }
+  .menu__adicionar { margin-top: -14px; }
+}
+
+/* ---------- Tablet (768px+) ---------- */
+@media (min-width: 768px) {
+  :root { --largura-app: 720px; --margem: 32px; --altura-menu: 74px; }
+  body { font-size: 1.0625rem; }
+  .topo__logo img { height: 36px; }
+  .avatar--pequeno { width: 40px; height: 40px; }
+  .titulo-tela__titulo { font-size: 1.75rem; }
+  .titulo-tela__rotulo { font-size: 0.75rem; }
+  .titulo-tela__apoio, .proxima { font-size: 0.9375rem; }
+  .bloco__titulo { font-size: 1rem; }
+  .link-pequeno { font-size: 0.875rem; }
+  .menu__item { font-size: 0.8125rem; }
+  .menu__adicionar { width: 60px; height: 60px; }
+
+  /* tarefas em 2 colunas */
+  .lista-tarefas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tarefa__meta { font-size: 0.8125rem; }
+  .semana__item { flex-basis: calc(25% - 9px); }
+  .semana__nome { font-size: 1.0625rem; }
+  .semana__qtd { font-size: 0.75rem; }
+
+  .resumo-semana { grid-template-columns: repeat(4, 1fr); }
+  .resumo-semana__item { font-size: 0.8125rem; }
+  .calendario { padding: 20px; }
+  .calendario__dia { min-height: 48px; font-size: 1rem; }
+  .calendario__select { font-size: 1rem; }
+  .dia-detalhe__titulo { font-size: 1rem; }
+  .dia-detalhe__qtd { font-size: 1.375rem; }
+  .dia-detalhe__lista { font-size: 0.875rem; }
+
+  .formulario, .perfil__form, .login__form { gap: 20px; }
+  .campo__rotulo, .campo-perfil__rotulo { font-size: 0.8125rem; }
+  .chip span { min-height: 44px; font-size: 0.9375rem; }
+  .cuidados { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cuidado__titulo { font-size: 1.0625rem; }
+  .cuidado__descricao { font-size: 0.875rem; }
+  .perfil__form { display: grid; grid-template-columns: 1fr 1fr; }
+  .perfil__form .campo-perfil:last-child { grid-column: 1 / -1; }
+  .estatistica { min-height: 96px; }
+  .estatistica__numero { font-size: 1.75rem; }
+  .estatistica__rotulo { font-size: 0.8125rem; }
+}
+
+/* ---------- Telas grandes (1024px+) ---------- */
+@media (min-width: 1024px) {
+  :root { --largura-app: 880px; }
+  .semana__item { flex-basis: calc(100% / 6 - 10px); }
+  .lista-tarefas { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =========================================================
+   MODO CALMO (escuro) — menos brilho e estímulo, cores ainda vivas
+   ========================================================= */
+body.modo-calmo {
+  color-scheme: dark;
+  --roxo: #7B68EE;
+  --roxo-escuro: #B9ACFF;     /* textos/links roxos: claros o bastante p/ fundo escuro */
+  --roxo-claro: #3A3174;
+  --lilas: #2E2A5A;
+  --lilas-medio: #3B3377;
+  --laranja: #4D3426;
+  --azul: #1F3D57;
+  --verde: #1D4034;
+  --rosa: #4D2A3E;
+  --verde-forte: #4ADE9A;
+  --tinta: #ECE9FF;
+  --tinta-suave: #B5B0D6;
+  --linha: #3B3768;
+  --fundo-pagina: #0D0B1E;
+}
+/* superfícies que usavam branco */
+body.modo-calmo .app,
+body.modo-calmo .menu { background: #15122B; }
+body.modo-calmo .menu { border-top-color: var(--linha); }
+body.modo-calmo .campo__input,
+body.modo-calmo .calendario__select,
+body.modo-calmo .resumo-semana__dia,
+body.modo-calmo .campo-perfil__input { background: #1C1838; color: var(--tinta); }
+body.modo-calmo .campo-perfil__input { background: transparent; }
+body.modo-calmo .horario__hora { background: #2A2552; color: var(--tinta); }
+body.modo-calmo .campo__input::placeholder { color: #8782AB; }
+body.modo-calmo .calendario__dia.is-marcado { background: #2A2552; }
+body.modo-calmo .calendario__dia.is-fora { color: #5E5A85; }
+body.modo-calmo .calendario__dia.is-selecionado,
+body.modo-calmo .chip input:checked + span,
+body.modo-calmo .botao--principal,
+body.modo-calmo .menu__adicionar { color: #fff; }
+body.modo-calmo .menu__adicionar.is-ativo { background: #6552D6; }
+body.modo-calmo .menu__adicionar { box-shadow: 0 6px 14px rgba(0,0,0,.45); }
+body.modo-calmo .tarefa__check { border-color: #B5B0D6; }
+body.modo-calmo .tarefa__check:checked {
+  border-color: var(--verde-forte);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ADE9A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E");
+}
+body.modo-calmo .interruptor { background: #4A4585; }
+body.modo-calmo .interruptor::before { background: #B5B0D6; }
+body.modo-calmo .interruptor:checked { background: var(--roxo); }
+body.modo-calmo .interruptor:checked::before { background: #fff; }
+body.modo-calmo .aviso { background: #ECE9FF; color: #15122B; }
+body.modo-calmo .campo__erro { color: #FF9C94; }
+body.modo-calmo .campo__input[aria-invalid="true"] { border-color: #FF9C94; }
+body.modo-calmo .botao--perigo { border-color: #FF9C94; color: #FF9C94; }
+body.modo-calmo .topo__logo img { filter: brightness(0) invert(1); } /* logo escura -> clara */
+body.modo-calmo .semana__dia, body.modo-calmo .tarefa, body.modo-calmo .cuidado,
+body.modo-calmo .estatistica, body.modo-calmo .dia-detalhe__cartao { color: var(--tinta); }
+
+/* "Reduzir animações" (Configurações) */
+body.sem-animacao *, body.sem-animacao *::before, body.sem-animacao *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+
+/* =========================================================
+   LOGIN / QUESTIONÁRIO
+   ========================================================= */
+.pagina-login .conteudo { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+.login__marca { display: flex; justify-content: center; padding: calc(24px + env(safe-area-inset-top, 0px)) 0 8px; }
+.login__marca img { height: 38px; width: auto; }
+.login__progresso { height: 6px; margin: 12px 0 4px; border-radius: 999px; background: var(--linha); overflow: hidden; }
+.login__barra { display: block; height: 100%; width: 25%; background: var(--roxo); transition: width .3s; }
+.login__passo-txt { font-size: .75rem; color: var(--tinta-suave); }
+.login__form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.login__passo { display: none; flex-direction: column; gap: 16px; border: 0; min-width: 0; }
+.login__passo.is-atual { display: flex; }
+.login__intro { font-size: .875rem; color: var(--tinta-suave); }
+.campo__ajuda { font-size: .75rem; color: var(--tinta-suave); }
+.login__acoes { display: flex; gap: 10px; margin-top: 8px; }
+.login__acoes .botao { flex: 1; }
+.botao--secundario { background: transparent; border: 1px solid var(--roxo); color: var(--roxo-escuro); }
+.login__aviso-legal { font-size: .75rem; color: var(--tinta-suave); }
+@media (min-width: 768px) {
+  .pagina-login .app { margin-block: 24px; min-height: auto; border-radius: 24px; }
+  .login__intro, .login__aviso-legal, .campo__ajuda { font-size: .9375rem; }
+}
+
+/* =========================================================
+   CONFIGURAÇÕES
+   ========================================================= */
+.config-grupo { margin-top: 22px; }
+.config-grupo__titulo { margin-bottom: 10px; font-size: .8125rem; font-weight: 600; color: var(--tinta-suave); text-transform: uppercase; letter-spacing: .06em; }
+.config-lista { display: flex; flex-direction: column; gap: 10px; }
+.config-resumo { padding: 14px; border-radius: var(--raio-m); background: var(--lilas); font-size: .875rem; }
+.config-resumo strong { display: block; font-size: 1.0625rem; }
+.config-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px; padding: 0 14px; border: 1px solid var(--linha); border-radius: var(--raio-m); background: transparent; text-align: left; font-size: .9375rem; font-weight: 500; }
+.config-btn--perigo { border-color: #B3261E; color: #B3261E; }
+body.modo-calmo .config-btn--perigo { border-color: #FF9C94; color: #FF9C94; }
+@media (min-width: 768px) { .config-lista { display: grid; grid-template-columns: 1fr 1fr; } .config-lista--cheia { grid-template-columns: 1fr; } }
