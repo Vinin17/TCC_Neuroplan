@@ -10,10 +10,11 @@
   --roxo:#7360E8;--roxo-escuro:#5844C9;--roxo-claro:#D6CCFA;--lilas:#EAE2F8;--lilas-medio:#C4B8F6;
   --laranja:#FAE5D6;--azul:#D3E8F7;--verde:#DDF2E8;--rosa:#FBE0EA;--verde-forte:#3FA777;
   --tinta:#1E1B3A;--tinta-suave:#6B6785;--linha:#D9D5E8;--branco:#FFFFFF;--fundo-pagina:#ECE9F7;
-  --largura-app:430px;--altura-menu:68px;--raio-g:16px;--raio-m:12px;--raio-p:8px;--margem:20px;
+  --superficie:#FFFFFF;--campo-hora:#E7E5EE;--marcado:#EFEDF5;--fora:#B3AFC4;--placeholder:#9A96AE;--borda-check:#4A4666;
+  --largura-app:430px;--menu-lateral:240px;--altura-menu:68px;--raio-g:16px;--raio-m:12px;--raio-p:8px;--margem:20px;
   --fonte:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
-body.modo-calmo *,body.modo-calmo *::before,body.modo-calmo *::after{animation:none!important;transition:none!important}
+.modo-calmo *,.modo-calmo *::before,.modo-calmo *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 
 /* 2. Base */
 *,*::before,*::after{box-sizing:border-box}
@@ -33,16 +34,17 @@ img{display:block;max-width:100%;height:auto}
 .icone--roxo{color:var(--roxo-escuro)}
 
 /* 3. Estrutura */
-.app{position:relative;width:100%;max-width:var(--largura-app);min-height:100dvh;margin:0 auto;background:var(--branco)}
+.app{position:relative;width:100%;max-width:var(--largura-app);min-height:100dvh;margin:0 auto;background:var(--superficie)}
 .conteudo{padding:4px var(--margem) calc(var(--altura-menu) + 32px + env(safe-area-inset-bottom,0px))}
 .topo{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) var(--margem) 10px}
 .topo__logo img{height:30px;width:auto}
+.logo--escuro{display:none}
 .avatar{display:grid;place-items:center;background:var(--lilas);color:var(--roxo-escuro);font-weight:600}
 .avatar--pequeno{width:34px;height:34px;border-radius:50%;font-size:.875rem}
 .avatar--grande{width:72px;height:72px;border-radius:var(--raio-g);font-size:2rem}
 
 /* 4. Menu inferior */
-.menu{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:10;width:100%;max-width:var(--largura-app);display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:center;height:calc(var(--altura-menu) + env(safe-area-inset-bottom,0px));padding:0 6px env(safe-area-inset-bottom,0px);background:var(--branco);border-top:1px solid var(--linha)}
+.menu{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:10;width:100%;max-width:var(--largura-app);display:grid;grid-template-columns:1fr 1fr 72px 1fr 1fr;align-items:center;height:calc(var(--altura-menu) + env(safe-area-inset-bottom,0px));padding:0 6px env(safe-area-inset-bottom,0px);background:var(--superficie);border-top:1px solid var(--linha)}
 .menu__item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:48px;font-size:.6875rem;color:var(--tinta)}
 .menu__item.is-ativo{color:var(--roxo-escuro);font-weight:600}
 .menu__adicionar{display:grid;place-items:center;justify-self:center;align-self:start;width:52px;height:52px;margin-top:-22px;border-radius:16px;background:var(--roxo);color:var(--branco);box-shadow:0 6px 14px rgba(115,96,232,.35)}
@@ -69,7 +71,7 @@ img{display:block;max-width:100%;height:auto}
 .tarefa__texto{display:flex;flex-direction:column;gap:1px}
 .tarefa__titulo{font-size:1rem;font-weight:500;line-height:1.2}
 .tarefa__meta{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;font-size:.6875rem;color:var(--tinta-suave)}
-.tarefa__check{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;border:1.5px solid #4A4666;border-radius:5px;background:transparent center/14px no-repeat;cursor:pointer}
+.tarefa__check{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:0;border:1.5px solid var(--borda-check);border-radius:5px;background:transparent center/14px no-repeat;cursor:pointer}
 .tarefa__check:checked{border-color:var(--tinta);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E1B3A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E")}
 .tarefa__editar{display:grid;place-items:center;flex:none;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--tinta-suave)}
 .tarefa__editar .icone{width:16px;height:16px}
@@ -90,8 +92,8 @@ img{display:block;max-width:100%;height:auto}
 .formulario{display:flex;flex-direction:column;gap:16px}
 .campo{display:flex;flex-direction:column;gap:6px;min-width:0;border:0}
 .campo__rotulo{padding:0;font-size:.6875rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--tinta)}
-.campo__input{width:100%;padding:11px 12px;border:1px solid var(--linha);border-radius:var(--raio-p);background:var(--branco);font-size:1rem}
-.campo__input::placeholder{color:#9A96AE}
+.campo__input{width:100%;padding:11px 12px;border:1px solid var(--linha);border-radius:var(--raio-p);background:var(--superficie);font-size:1rem}
+.campo__input::placeholder{color:var(--placeholder)}
 .campo__input--area{min-height:140px;resize:vertical}
 .campo__input[aria-invalid="true"]{border-color:#C0392B}
 .campo__erro{font-size:.75rem;color:#B3261E}
@@ -108,7 +110,7 @@ img{display:block;max-width:100%;height:auto}
 .horario__data-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
 .horario__data:has(input:focus-visible){outline:3px solid var(--roxo-escuro);outline-offset:2px}
 .horario__linha{display:flex;align-items:center;gap:10px;margin-top:8px}
-.horario__hora{flex:1;min-width:0;padding:9px 10px;border:0;border-radius:var(--raio-p);background:#E7E5EE;font-size:1rem}
+.horario__hora{flex:1;min-width:0;padding:9px 10px;border:0;border-radius:var(--raio-p);background:var(--campo-hora);font-size:1rem}
 .horario__as{font-size:.875rem;color:var(--tinta-suave)}
 .horario__aviso{display:flex;align-items:center;gap:6px;min-height:40px;margin-top:6px;font-size:.75rem;font-weight:600;cursor:pointer}
 .horario__aviso:has(input:not(:checked)){opacity:.55;text-decoration:line-through}
@@ -125,7 +127,7 @@ img{display:block;max-width:100%;height:auto}
 
 /* 8. Rotina */
 .resumo-semana{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.resumo-semana__dia{display:block;width:100%;height:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:var(--raio-m);background:var(--branco);text-align:left}
+.resumo-semana__dia{display:block;width:100%;height:100%;padding:10px 12px;border:1px solid var(--linha);border-radius:var(--raio-m);background:var(--superficie);text-align:left}
 .resumo-semana__dia.is-selecionado{border-color:var(--roxo);box-shadow:inset 0 0 0 1px var(--roxo)}
 .resumo-semana__nome{display:block;margin-bottom:4px;font-size:.875rem;font-weight:700}
 .resumo-semana__item{display:block;font-size:.75rem}
@@ -135,14 +137,14 @@ img{display:block;max-width:100%;height:auto}
 .calendario__controles{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .calendario__seta{display:grid;place-items:center;width:40px;height:40px;border:0;background:transparent}
 .calendario__seta .icone{width:18px;height:18px}
-.calendario__select{min-height:38px;padding:0 10px;border:1px solid var(--linha);border-radius:6px;background:var(--branco);font-size:.8125rem}
+.calendario__select{min-height:38px;padding:0 10px;border:1px solid var(--linha);border-radius:6px;background:var(--superficie);font-size:.8125rem}
 .calendario__grade{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .calendario__semana{padding:4px 0;text-align:center;font-size:.6875rem;color:var(--tinta-suave)}
 .calendario__dia{display:grid;place-items:center;width:100%;min-height:38px;padding:0;border:0;border-radius:var(--raio-p);background:transparent;font-size:.8125rem}
-.calendario__dia.is-marcado{background:#EFEDF5}
+.calendario__dia.is-marcado{background:var(--marcado)}
 .calendario__dia.is-hoje{box-shadow:inset 0 0 0 1.5px var(--roxo)}
 .calendario__dia.is-selecionado{background:var(--roxo);color:var(--branco);font-weight:600}
-.calendario__dia.is-fora{color:#B3AFC4}
+.calendario__dia.is-fora{color:var(--fora)}
 .dia-detalhe{margin-top:18px}
 .dia-detalhe__titulo{margin-bottom:8px;font-size:.8125rem;font-weight:500}
 .dia-detalhe__cartao{padding:14px;border-radius:var(--raio-m);background:var(--verde)}
@@ -186,12 +188,10 @@ img{display:block;max-width:100%;height:auto}
 @media (min-width:480px){.app{box-shadow:0 0 40px rgba(60,40,140,.12)}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
-/* ===== 13 a 17: Responsividade, Modo Calmo (escuro), Login e Configurações ===== */
+/* ===== 13 em diante: responsividade, temas, Modo Calmo, login, configurações e desktop ===== */
 /* =========================================================
-   NEUROPLAN · extras.css
-   Carregue DEPOIS do style.css:  <link rel="stylesheet" href="extras.css">
-   Contém: responsividade (celular/tablet/desktop), novo Modo Calmo (escuro),
-   login, configurações e botão de engrenagem no cabeçalho.
+   Responsividade (celular/tablet), engrenagem do cabeçalho, temas,
+   Modo Calmo, login, configurações e layout de computador (no fim).
    ========================================================= */
 
 /* ---------- Evita rolagem lateral e textos estourando ---------- */
@@ -274,60 +274,68 @@ html { overflow-x: hidden; }
 }
 
 /* =========================================================
-   MODO CALMO (escuro) — menos brilho e estímulo, cores ainda vivas
+   TEMA ESCURO  ->  <html data-tema="escuro">   (Configurações > Tema)
+   É só uma troca de cores. Não tem relação com o Modo Calmo.
    ========================================================= */
-body.modo-calmo {
-  color-scheme: dark;
-  --roxo: #7B68EE;
-  --roxo-escuro: #B9ACFF;     /* textos/links roxos: claros o bastante p/ fundo escuro */
-  --roxo-claro: #3A3174;
-  --lilas: #2E2A5A;
-  --lilas-medio: #3B3377;
-  --laranja: #4D3426;
-  --azul: #1F3D57;
-  --verde: #1D4034;
-  --rosa: #4D2A3E;
-  --verde-forte: #4ADE9A;
-  --tinta: #ECE9FF;
-  --tinta-suave: #B5B0D6;
-  --linha: #3B3768;
-  --fundo-pagina: #0D0B1E;
+html[data-tema="escuro"]{
+  color-scheme:dark;
+  --roxo:#7B68EE;--roxo-escuro:#B9ACFF;--roxo-claro:#3A3174;
+  --lilas:#2E2A5A;--lilas-medio:#3B3377;--laranja:#4D3426;--azul:#1F3D57;--verde:#1D4034;--rosa:#4D2A3E;
+  --verde-forte:#4ADE9A;--tinta:#ECE9FF;--tinta-suave:#B5B0D6;--linha:#3B3768;--fundo-pagina:#0D0B1E;
+  --superficie:#15122B;--campo-hora:#2A2552;--marcado:#2A2552;--fora:#5E5A85;--placeholder:#8782AB;--borda-check:#B5B0D6;
 }
-/* superfícies que usavam branco */
-body.modo-calmo .app,
-body.modo-calmo .menu { background: #15122B; }
-body.modo-calmo .menu { border-top-color: var(--linha); }
-body.modo-calmo .campo__input,
-body.modo-calmo .calendario__select,
-body.modo-calmo .resumo-semana__dia,
-body.modo-calmo .campo-perfil__input { background: #1C1838; color: var(--tinta); }
-body.modo-calmo .campo-perfil__input { background: transparent; }
-body.modo-calmo .horario__hora { background: #2A2552; color: var(--tinta); }
-body.modo-calmo .campo__input::placeholder { color: #8782AB; }
-body.modo-calmo .calendario__dia.is-marcado { background: #2A2552; }
-body.modo-calmo .calendario__dia.is-fora { color: #5E5A85; }
-body.modo-calmo .calendario__dia.is-selecionado,
-body.modo-calmo .chip input:checked + span,
-body.modo-calmo .botao--principal,
-body.modo-calmo .menu__adicionar { color: #fff; }
-body.modo-calmo .menu__adicionar.is-ativo { background: #6552D6; }
-body.modo-calmo .menu__adicionar { box-shadow: 0 6px 14px rgba(0,0,0,.45); }
-body.modo-calmo .tarefa__check { border-color: #B5B0D6; }
-body.modo-calmo .tarefa__check:checked {
-  border-color: var(--verde-forte);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ADE9A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E");
+html[data-tema="escuro"] .campo__input,
+html[data-tema="escuro"] .calendario__select,
+html[data-tema="escuro"] .resumo-semana__dia{background:#1C1838;color:var(--tinta)}
+html[data-tema="escuro"] .campo-perfil__input{background:transparent;color:var(--tinta)}
+html[data-tema="escuro"] .horario__hora{color:var(--tinta)}
+html[data-tema="escuro"] .menu__adicionar{box-shadow:0 6px 14px rgba(0,0,0,.45)}
+html[data-tema="escuro"] .menu__adicionar.is-ativo{background:#6552D6}
+html[data-tema="escuro"] .tarefa__check:checked{border-color:var(--verde-forte);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ADE9A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E")}
+html[data-tema="escuro"] .interruptor{background:#4A4585}
+html[data-tema="escuro"] .interruptor::before{background:#B5B0D6}
+html[data-tema="escuro"] .interruptor:checked{background:var(--roxo)}
+html[data-tema="escuro"] .interruptor:checked::before{background:#fff}
+html[data-tema="escuro"] .aviso{background:#ECE9FF;color:#15122B}
+html[data-tema="escuro"] .campo__erro{color:#FF9C94}
+html[data-tema="escuro"] .campo__input[aria-invalid="true"]{border-color:#FF9C94}
+html[data-tema="escuro"] .botao--perigo,
+html[data-tema="escuro"] .config-btn--perigo{border-color:#FF9C94;color:#FF9C94}
+html[data-tema="escuro"] .logo--claro{display:none}
+html[data-tema="escuro"] .logo--escuro{display:block}
+
+/* =========================================================
+   MODO CALMO  ->  <html class="modo-calmo">   (Cuidados / Configurações)
+   Menos estímulos visuais, mantendo o tema escolhido (claro ou escuro):
+   cores suaves e dessaturadas, sem sombras, sem animações,
+   logo e símbolo em tom apagado. O contraste do texto continua alto.
+   ========================================================= */
+html.modo-calmo{
+  --roxo:#5F5E92;--roxo-escuro:#4A4A78;--roxo-claro:#E2E1EC;
+  --lilas:#EEEDF3;--lilas-medio:#E4E3EC;--laranja:#F1ECE6;--azul:#E8EDF1;--verde:#E8EFEA;--rosa:#F1E9EC;
+  --verde-forte:#6E9A84;--tinta:#2B2A33;--tinta-suave:#5F5E6B;--linha:#DAD9E0;--fundo-pagina:#F3F2F5;
+  --marcado:#EEEDF3;--campo-hora:#E9E8EE;
 }
-body.modo-calmo .interruptor { background: #4A4585; }
-body.modo-calmo .interruptor::before { background: #B5B0D6; }
-body.modo-calmo .interruptor:checked { background: var(--roxo); }
-body.modo-calmo .interruptor:checked::before { background: #fff; }
-body.modo-calmo .aviso { background: #ECE9FF; color: #15122B; }
-body.modo-calmo .campo__erro { color: #FF9C94; }
-body.modo-calmo .campo__input[aria-invalid="true"] { border-color: #FF9C94; }
-body.modo-calmo .botao--perigo { border-color: #FF9C94; color: #FF9C94; }
-body.modo-calmo .topo__logo img { filter: brightness(0) invert(1); } /* logo escura -> clara */
-body.modo-calmo .semana__dia, body.modo-calmo .tarefa, body.modo-calmo .cuidado,
-body.modo-calmo .estatistica, body.modo-calmo .dia-detalhe__cartao { color: var(--tinta); }
+.modo-calmo .app,.modo-calmo .menu__adicionar,.modo-calmo .aviso{box-shadow:none}
+.modo-calmo .logo,.modo-calmo .login__simbolo{filter:saturate(.35) opacity(.9)}
+.modo-calmo .tarefa--importante{box-shadow:inset 0 0 0 1.5px var(--roxo)}
+.modo-calmo .interruptor:checked::before{background:#fff}
+.modo-calmo .semana__dia.is-hoje,.modo-calmo .calendario__dia.is-hoje{box-shadow:inset 0 0 0 1px var(--roxo)}
+.modo-calmo .titulo-tela__rotulo{letter-spacing:.04em}
+
+/* Modo Calmo + tema escuro: versão apagada do escuro */
+html[data-tema="escuro"].modo-calmo{
+  --roxo:#8A87B8;--roxo-escuro:#BDBBDD;--roxo-claro:#2F2D47;
+  --lilas:#26243A;--lilas-medio:#2F2D47;--laranja:#332E2B;--azul:#252E36;--verde:#243029;--rosa:#322A2F;
+  --verde-forte:#7FB79A;--tinta:#E6E5EC;--tinta-suave:#A9A8B8;--linha:#34324A;--fundo-pagina:#121119;
+  --superficie:#191824;--campo-hora:#242335;--marcado:#242335;--fora:#5C5B70;--placeholder:#8584A0;--borda-check:#A9A8B8;
+}
+html[data-tema="escuro"].modo-calmo .campo__input,
+html[data-tema="escuro"].modo-calmo .calendario__select,
+html[data-tema="escuro"].modo-calmo .resumo-semana__dia{background:#1F1E2D}
+html[data-tema="escuro"].modo-calmo .menu__adicionar.is-ativo{background:#77749F}
+html[data-tema="escuro"].modo-calmo .interruptor{background:#3E3C58}
+html[data-tema="escuro"].modo-calmo .tarefa__check:checked{border-color:var(--verde-forte);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237FB79A' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7'/%3E%3C/svg%3E")}
 
 /* "Reduzir animações" (Configurações) */
 body.sem-animacao *, body.sem-animacao *::before, body.sem-animacao *::after {
@@ -338,8 +346,9 @@ body.sem-animacao *, body.sem-animacao *::before, body.sem-animacao *::after {
    LOGIN / QUESTIONÁRIO
    ========================================================= */
 .pagina-login .conteudo { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
-.login__marca { display: flex; justify-content: center; padding: calc(24px + env(safe-area-inset-top, 0px)) 0 8px; }
-.login__marca img { height: 38px; width: auto; }
+.login__marca { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: calc(24px + env(safe-area-inset-top, 0px)) 0 8px; }
+.login__marca .logo { height: 38px; width: auto; }
+.login__marca .login__simbolo { height: 64px; width: auto; }
 .login__progresso { height: 6px; margin: 12px 0 4px; border-radius: 999px; background: var(--linha); overflow: hidden; }
 .login__barra { display: block; height: 100%; width: 25%; background: var(--roxo); transition: width .3s; }
 .login__passo-txt { font-size: .75rem; color: var(--tinta-suave); }
@@ -353,7 +362,7 @@ body.sem-animacao *, body.sem-animacao *::before, body.sem-animacao *::after {
 .botao--secundario { background: transparent; border: 1px solid var(--roxo); color: var(--roxo-escuro); }
 .login__aviso-legal { font-size: .75rem; color: var(--tinta-suave); }
 @media (min-width: 768px) {
-  .pagina-login .app { margin-block: 24px; min-height: auto; border-radius: 24px; }
+  .pagina-login .app { max-width: 560px; margin-block: 24px; min-height: auto; border-radius: 24px; }
   .login__intro, .login__aviso-legal, .campo__ajuda { font-size: .9375rem; }
 }
 
@@ -367,5 +376,64 @@ body.sem-animacao *, body.sem-animacao *::before, body.sem-animacao *::after {
 .config-resumo strong { display: block; font-size: 1.0625rem; }
 .config-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px; padding: 0 14px; border: 1px solid var(--linha); border-radius: var(--raio-m); background: transparent; text-align: left; font-size: .9375rem; font-weight: 500; }
 .config-btn--perigo { border-color: #B3261E; color: #B3261E; }
-body.modo-calmo .config-btn--perigo { border-color: #FF9C94; color: #FF9C94; }
 @media (min-width: 768px) { .config-lista { display: grid; grid-template-columns: 1fr 1fr; } .config-lista--cheia { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   COMPUTADOR (1024px+): menu vira barra lateral, telas em colunas
+   ========================================================= */
+@media (min-width: 1024px) {
+  :root { --largura-app: 1240px; --margem: 40px; }
+  body { font-size: 1.0625rem; }
+
+  /* estrutura: cabeçalho em cima, menu à esquerda, conteúdo à direita */
+  .app { display: grid; grid-template-columns: var(--menu-lateral) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: stretch; }
+  .topo { grid-column: 1 / -1; grid-row: 1; padding: 18px var(--margem) 14px; border-bottom: 1px solid var(--linha); }
+  .topo__logo img { height: 40px; }
+  .conteudo { grid-column: 2; grid-row: 2; padding: 12px var(--margem) 56px; }
+  .pagina-login .app { display: block; }
+  .pagina-login .conteudo { padding: 4px 32px 40px; }
+
+  /* menu inferior -> barra lateral */
+  .menu { position: static; grid-column: 1; grid-row: 2; transform: none; left: auto; bottom: auto; z-index: auto;
+    display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 6px;
+    width: auto; max-width: none; height: auto; padding: 24px 16px; border-top: 0; border-right: 1px solid var(--linha); }
+  .menu__item { flex-direction: row; justify-content: flex-start; gap: 12px; min-height: 48px; padding: 0 14px; border-radius: var(--raio-m); font-size: .9375rem; }
+  .menu__item:hover { background: var(--lilas); }
+  .menu__item.is-ativo { background: var(--lilas); }
+  .menu__adicionar { order: -1; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; height: 50px; margin: 0 0 14px; border-radius: var(--raio-m); }
+  .menu__adicionar::after { content: "Nova tarefa"; font-size: .9375rem; font-weight: 600; }
+  .menu__adicionar .icone { width: 22px; height: 22px; }
+  .aviso { bottom: 32px; }
+
+  /* Hoje: tarefas à esquerda, semana à direita */
+  .pagina-hoje .tela { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: 40px; align-items: start; grid-auto-flow: row dense; }
+  .pagina-hoje .titulo-tela, .pagina-hoje .proxima { grid-column: 1 / -1; }
+  .pagina-hoje .tela > .bloco { grid-column: 1; }
+  .pagina-hoje .tela > .bloco:last-child { grid-column: 2; }
+  .pagina-hoje .lista-tarefas { grid-template-columns: 1fr; }
+  .pagina-hoje .semana { flex-direction: column; margin: 0; padding: 0; overflow: visible; scroll-snap-type: none; }
+  .pagina-hoje .semana__item { flex: none; }
+  .pagina-hoje .semana__dia { min-height: 0; }
+
+  /* Rotina: calendário à esquerda, dia escolhido à direita */
+  .pagina-rotina .tela { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 40px; align-items: start; }
+  .pagina-rotina .titulo-tela, .pagina-rotina .resumo-semana { grid-column: 1 / -1; }
+  .pagina-rotina .calendario { grid-column: 1; }
+  .pagina-rotina .dia-detalhe { grid-column: 2; margin-top: 16px; }
+  .pagina-rotina .lista-tarefas { grid-template-columns: 1fr; }
+
+  /* Cuidados: 3 colunas */
+  .cuidados { grid-template-columns: repeat(3, 1fr); }
+
+  /* telas de formulário: largura confortável, centralizadas */
+  .pagina-nova-tarefa .tela, .pagina-usuario .tela, .pagina-configuracoes .tela { max-width: 760px; margin-inline: auto; }
+  .pagina-configuracoes .config-lista { grid-template-columns: 1fr 1fr; }
+  .pagina-configuracoes .config-lista--cheia { grid-template-columns: 1fr; }
+}
+
+/* monitores bem largos: mais respiro nas laterais */
+@media (min-width: 1440px) {
+  body { background-image: none; }
+  .app { box-shadow: 0 0 60px rgba(60, 40, 140, .14); }
+  .modo-calmo .app { box-shadow: none; }
+}

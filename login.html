@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#7B68EE">
   <title>Entrar · NeuroPlan</title>
+  <link rel="icon" type="image/png" href="img/icone-app.png">
+  <link rel="apple-touch-icon" href="img/icone-app.png">
+  <!-- aplica tema/modo calmo antes de desenhar a página (evita "piscar") -->
+  <script>try{var c=JSON.parse(localStorage.getItem("neuroplan:config")||"{}"),k=JSON.parse(localStorage.getItem("neuroplan:cuidados")||"{}"),t=c.tema||"claro",r=document.documentElement;if(t==="auto")t=matchMedia("(prefers-color-scheme: dark)").matches?"escuro":"claro";r.dataset.tema=t;if(k["modo-calmo"])r.classList.add("modo-calmo")}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body class="pagina-login">
   <div class="app">
     <main class="conteudo">
-      <div class="login__marca"><img src="logo-horizontal.svg" alt="NeuroPlan"></div>
+      <div class="login__marca"><img class="login__simbolo" src="img/simbolo.png" width="513" height="487" alt="" aria-hidden="true"><img class="logo logo--claro" src="img/logo-horizontal.png" width="930" height="201" alt="NeuroPlan"><img class="logo logo--escuro" src="img/logo-horizontal-escuro.png" width="930" height="199" alt=""></div>
 
       <div class="login__progresso" aria-hidden="true"><span class="login__barra" id="login-barra"></span></div>
       <p class="login__passo-txt" id="login-passo-txt" aria-live="polite">Passo 1 de 4</p>

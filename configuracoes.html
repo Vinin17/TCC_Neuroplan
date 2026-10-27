@@ -6,6 +6,10 @@
   <meta name="theme-color" content="#7B68EE">
   <meta name="description" content="NeuroPlan: planejador de rotina pensado para neurodivergentes.">
   <title>Configurações · NeuroPlan</title>
+  <link rel="icon" type="image/png" href="img/icone-app.png">
+  <link rel="apple-touch-icon" href="img/icone-app.png">
+  <!-- aplica tema/modo calmo antes de desenhar a página (evita "piscar") -->
+  <script>try{var c=JSON.parse(localStorage.getItem("neuroplan:config")||"{}"),k=JSON.parse(localStorage.getItem("neuroplan:cuidados")||"{}"),t=c.tema||"claro",r=document.documentElement;if(t==="auto")t=matchMedia("(prefers-color-scheme: dark)").matches?"escuro":"claro";r.dataset.tema=t;if(k["modo-calmo"])r.classList.add("modo-calmo")}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -31,7 +35,7 @@
     <!-- Cabeçalho (igual em todas as páginas) -->
     <header class="topo">
       <a href="index.html" class="topo__logo" aria-label="NeuroPlan - ir para Hoje">
-        <img src="logo-horizontal.svg" alt="NeuroPlan">
+        <img class="logo logo--claro" src="img/logo-horizontal.png" width="930" height="201" alt="NeuroPlan"><img class="logo logo--escuro" src="img/logo-horizontal-escuro.png" width="930" height="199" alt="">
       </a>
       <div class="topo__acoes">
         <a href="configuracoes.html" class="topo__config" aria-label="Configurações" aria-current="page"><svg class="icone" aria-hidden="true"><use href="#i-gear"/></svg></a>
@@ -58,11 +62,17 @@
         <div class="config-grupo">
           <h2 class="config-grupo__titulo">Aparência</h2>
           <ul class="cuidados config-lista--cheia" style="display:flex">
-            <li><label class="cuidado"><span class="cuidado__texto"><span class="cuidado__titulo">Modo Calmo</span><span class="cuidado__descricao">Tela escura e menos estímulos</span></span>
+            <li><label class="cuidado"><span class="cuidado__texto"><span class="cuidado__titulo">Modo Calmo</span><span class="cuidado__descricao">Cores suaves, sem animações e menos estímulos</span></span>
               <input type="checkbox" class="interruptor" role="switch" id="cfg-calmo"></label></li>
             <li><label class="cuidado"><span class="cuidado__texto"><span class="cuidado__titulo">Reduzir animações</span><span class="cuidado__descricao">Desliga movimentos e transições</span></span>
               <input type="checkbox" class="interruptor" role="switch" id="cfg-animacao"></label></li>
           </ul>
+          <fieldset class="campo campo--grupo" style="margin-top:14px"><legend class="campo__rotulo">Tema</legend>
+            <div class="chips" id="cfg-tema">
+              <label class="chip"><input type="radio" name="tema" value="claro" checked><span>Claro</span></label>
+              <label class="chip"><input type="radio" name="tema" value="escuro"><span>Escuro</span></label>
+              <label class="chip"><input type="radio" name="tema" value="auto"><span>Automático</span></label>
+            </div></fieldset>
           <fieldset class="campo campo--grupo" style="margin-top:14px"><legend class="campo__rotulo">Tamanho do texto</legend>
             <div class="chips" id="cfg-fonte">
               <label class="chip"><input type="radio" name="fonte" value="p"><span>Pequeno</span></label>
@@ -70,7 +80,7 @@
               <label class="chip"><input type="radio" name="fonte" value="g"><span>Grande</span></label>
               <label class="chip"><input type="radio" name="fonte" value="xg"><span>Muito grande</span></label>
             </div></fieldset>
-          <p class="campo__ajuda" style="margin-top:8px">Mais modos e avisos ficam em <a class="link-pequeno" href="cuidados.html">Cuidados</a>.</p>
+          <p class="campo__ajuda" style="margin-top:8px">O tema escuro e o Modo Calmo são independentes: dá para usar os dois juntos. Mais modos e avisos ficam em <a class="link-pequeno" href="cuidados.html">Cuidados</a>.</p>
         </div>
 
         <div class="config-grupo">
