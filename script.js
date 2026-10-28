@@ -196,7 +196,7 @@
 
   /* ---------- Todas as páginas ---------- */
   function aplicarCuidados() {
-    document.body.classList.toggle("modo-calmo", Boolean(carregarCuidados()["modo-calmo"]));
+    document.documentElement.classList.toggle("modo-calmo", Boolean(carregarCuidados()["modo-calmo"]));
   }
   function atualizarAvatares() {
     const perfil = ler(CHAVES.perfil, null);
@@ -517,7 +517,7 @@
      CUIDADOS
        Previsibilidade -> Hoje mostra "Próxima: ... (em X min)"
        Pausas          -> tarefas longas mostram "pausa a cada X min"
-       Modo Calmo      -> tela escura e sem animações
+       Modo Calmo      -> cores suaves, sem animações e menos estímulos (independe do tema escuro)
        Sessões curtas  -> tarefas longas mostram "N sessões de X min"
        Recuperação     -> Hoje mostra "Para recuperar" (7 dias)
        Prioridade      -> importantes sobem na lista e ganham destaque
@@ -603,13 +603,9 @@
 })();
 
 /* =========================================================
-   EXTRAS: login/questionário, configurações, preferências visuais
-   e ligações com o questionário (segundo bloco; roda depois do primeiro)
-   ========================================================= */
-/* =========================================================
-   NEUROPLAN · extras.js  (carregue DEPOIS do script.js)
-   Login/questionário, configurações, engrenagem no cabeçalho,
-   tamanho de texto e "reduzir animações" em todas as páginas.
+   PARTE 2 · login/questionário, configurações, tema, tamanho do texto,
+   "reduzir animações" e ligações com o questionário.
+   (roda depois da parte 1, no mesmo arquivo)
    ========================================================= */
 (function () {
   "use strict";
@@ -634,16 +630,32 @@
     return;
   }
 
-  /* ---------- Configurações visuais (todas as páginas) ---------- */
+  /* ---------- Configurações visuais (todas as páginas) ----------
+     Tema (claro/escuro/automático) e Modo Calmo são coisas separadas:
+       - tema   -> <html data-tema="claro|escuro">
+       - calmo  -> <html class="modo-calmo">
+     O CSS combina os dois. */
   const TAMANHOS = { p: "87.5%", m: "100%", g: "112.5%", xg: "125%" };
+  const sistemaEscuro = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function temaAtual(c) {
+    const t = c.tema || "claro";
+    if (t === "auto") return sistemaEscuro && sistemaEscuro.matches ? "escuro" : "claro";
+    return t === "escuro" ? "escuro" : "claro";
+  }
   function aplicarConfig() {
     const c = ler(K.config, {});
-    document.documentElement.style.fontSize = TAMANHOS[c.fonte] || "100%";
-    document.body.classList.toggle("sem-animacao", Boolean(c.semAnimacao));
+    const raiz = document.documentElement;
+    const tema = temaAtual(c);
     const calmo = Boolean(ler(K.cuidados, {})["modo-calmo"]);
-    document.body.classList.toggle("modo-calmo", calmo);
+    raiz.style.fontSize = TAMANHOS[c.fonte] || "100%";
+    raiz.dataset.tema = tema;
+    raiz.classList.toggle("modo-calmo", calmo);
+    document.body.classList.toggle("sem-animacao", Boolean(c.semAnimacao));
     const meta = $('meta[name="theme-color"]');
-    if (meta) meta.content = calmo ? "#15122B" : "#7B68EE";
+    if (meta) meta.content = tema === "escuro" ? (calmo ? "#191824" : "#15122B") : (calmo ? "#F3F2F5" : "#7B68EE");
+  }
+  if (sistemaEscuro && sistemaEscuro.addEventListener) {
+    sistemaEscuro.addEventListener("change", () => { if (ler(K.config, {}).tema === "auto") aplicarConfig(); });
   }
 
   /* ---------- Engrenagem no cabeçalho ---------- */
@@ -818,6 +830,12 @@
     const fonte = $('input[name="fonte"][value="' + (cfg.fonte || "m") + '"]');
     if (fonte) fonte.checked = true;
 
+    const tema = $('input[name="tema"][value="' + (cfg.tema || "claro") + '"]');
+    if (tema) tema.checked = true;
+    $$('input[name="tema"]').forEach((el) => el.addEventListener("change", () => {
+      const c = ler(K.config, {}); c.tema = el.value; gravar(K.config, c); aplicarConfig();
+    }));
+
     calmo.addEventListener("change", () => {
       const c = ler(K.cuidados, {}); c["modo-calmo"] = calmo.checked; gravar(K.cuidados, c); aplicarConfig();
     });
@@ -870,7 +888,7 @@
       const h = new Date().getHours();
       dica.textContent = h >= ini && h < fim
         ? "Agora é o seu melhor horário de foco. Bom momento para a tarefa mais difícil."
-        : "Você rende melhor " + nome + " (" + ini + "h–" + fim + "h). Deixe o mais difícil para lá.";
+        : "Você rende melhor " + nome + " (" + ini + "h–" + fim + "h). Deixe o mais difícil para esse horário.";
     }
     atualizar();
     setInterval(atualizar, 60000);
@@ -919,6 +937,9 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     aplicarConfig();
+    // Cuidados > Modo Calmo: atualiza a página na hora
+    const swCalmo = $('input.interruptor[name="modo-calmo"]');
+    if (swCalmo) swCalmo.addEventListener("change", aplicarConfig);
     inserirEngrenagem();
     iniciarLogin();
     iniciarConfig();

@@ -6,6 +6,10 @@
   <meta name="theme-color" content="#7B68EE">
   <meta name="description" content="NeuroPlan: planejador de rotina pensado para neurodivergentes.">
   <title>Cuidados especiais · NeuroPlan</title>
+  <link rel="icon" type="image/png" href="img/icone-app.png">
+  <link rel="apple-touch-icon" href="img/icone-app.png">
+  <!-- aplica tema/modo calmo antes de desenhar a página (evita "piscar") -->
+  <script>try{var c=JSON.parse(localStorage.getItem("neuroplan:config")||"{}"),k=JSON.parse(localStorage.getItem("neuroplan:cuidados")||"{}"),t=c.tema||"claro",r=document.documentElement;if(t==="auto")t=matchMedia("(prefers-color-scheme: dark)").matches?"escuro":"claro";r.dataset.tema=t;if(k["modo-calmo"])r.classList.add("modo-calmo")}catch(e){}</script>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
@@ -31,7 +35,7 @@
     <!-- Cabeçalho (igual em todas as páginas) -->
     <header class="topo">
       <a href="index.html" class="topo__logo" aria-label="NeuroPlan - ir para Hoje">
-        <img src="logo-horizontal.svg" alt="NeuroPlan">
+        <img class="logo logo--claro" src="img/logo-horizontal.png" width="930" height="201" alt="NeuroPlan"><img class="logo logo--escuro" src="img/logo-horizontal-escuro.png" width="930" height="199" alt="">
       </a>
       <div class="topo__acoes">
         <a href="configuracoes.html" class="topo__config" aria-label="Configurações"><svg class="icone" aria-hidden="true"><use href="#i-gear"/></svg></a>
@@ -68,7 +72,7 @@
             <label class="cuidado">
               <span class="cuidado__texto">
                 <span class="cuidado__titulo">Modo Calmo</span>
-                <span class="cuidado__descricao">Tela escura e menos estímulos visuais</span>
+                <span class="cuidado__descricao">Cores suaves, sem animações e menos estímulos visuais</span>
               </span>
               <input type="checkbox" class="interruptor" role="switch" name="modo-calmo">
             </label>
